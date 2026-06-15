@@ -1,0 +1,219 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;800;900&family=Outfit:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  /* Colors - Premium Luxury Gold & Warm Charcoal Theme */
+  --bg-primary: #070708; /* Deep rich black */
+  --bg-secondary: #0e0e11; /* Warm luxury charcoal */
+  --bg-card: rgba(20, 20, 24, 0.65); /* Translucent obsidian card */
+  --bg-card-hover: rgba(30, 30, 36, 0.8);
+  --border-color: rgba(212, 163, 89, 0.2); /* Soft luxury gold/bronze border */
+  --border-hover: rgba(212, 163, 89, 0.65); /* Glowing gold border */
+  
+  --text-primary: #fbfbfa; /* Warm off-white */
+  --text-secondary: #a3a3a6; /* Muted warm grey */
+  --text-muted: #5e5e61; /* Dark grey */
+  
+  --accent: #d4a359; /* Warm Luxury Gold */
+  --accent-light: #e6c280;
+  --accent-purple: #c5a059;
+  --accent-glow: rgba(212, 163, 89, 0.15);
+  
+  --accent-cyan: #e2c082;
+  --accent-gradient: linear-gradient(135deg, #d4a359 0%, #a67c37 100%);
+  --accent-gradient-hover: linear-gradient(135deg, #e6c280 0%, #b88f4c 100%);
+  
+  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 8px 30px rgba(212, 163, 89, 0.1), 0 4px 15px rgba(0, 0, 0, 0.6);
+  --shadow-lg: 0 16px 50px rgba(212, 163, 89, 0.18), 0 8px 25px rgba(0, 0, 0, 0.8);
+  
+  --glass-bg: rgba(14, 14, 17, 0.8);
+  --glass-border: rgba(212, 163, 89, 0.25);
+  --glass-blur: blur(25px);
+  
+  /* Fonts */
+  --font-sans: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-tech: 'Outfit', sans-serif; /* Shift from tech Orbitron to elegant Outfit */
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-primary);
+  background-image: 
+    linear-gradient(rgba(6, 182, 212, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(6, 182, 212, 0.04) 1px, transparent 1px);
+  background-size: 40px 40px;
+  background-position: center center;
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(6, 182, 212, 0.3);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+button, input, select, textarea {
+  font-family: var(--font-sans);
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Glassmorphism utility classes */
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-md);
+  position: relative;
+}
+
+.glass-panel::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.1) 0%, transparent 100%);
+}
+
+.glass-nav {
+  background: rgba(3, 7, 18, 0.75);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border-bottom: 1px solid var(--border-color);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* Canvas fix to prevent squishing aspect ratio */
+canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Keyframes animations */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(6, 182, 212, 0.2);
+    border-color: rgba(6, 182, 212, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(6, 182, 212, 0.5), 0 0 10px rgba(168, 85, 247, 0.3);
+    border-color: var(--accent);
+  }
+}
+
+@keyframes cyberGridMove {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 0 40px;
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.glow-hover:hover {
+  animation: pulseGlow 2.5s infinite;
+}
+
+/* Hide default scrollbars for sliding categories */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+/* Futuristic Scanline Effect for Cyber panels */
+.scanline::before {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+  z-index: 2;
+  background-size: 100% 3px, 6px 100%;
+  pointer-events: none;
+  opacity: 0.4;
+}

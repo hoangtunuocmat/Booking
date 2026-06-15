@@ -1,0 +1,101 @@
+booking-website/
+│
+├── backend/  ───────────────────────────────► [PHẦN BACKEND - NODE.JS & EXPRESS]
+│   ├── src/
+│   │   ├── config/
+│   │   │   └── supabase.js       # Khởi tạo và kết nối Supabase SDK Client
+│   │   │
+│   │   ├── models/               # M trong MVC: Chứa các hàm query dữ liệu trực tiếp
+│   │   │   ├── userModel.js      # Thao tác bảng TaiKhoan, KhachHang, NhanVien, ChuSoHuu
+│   │   │   ├── hotelModel.js     # Thao tác bảng cosoluutru, loaichoo, tiennghi, hinhanhcoso
+│   │   │   ├── roomModel.js      # Thao tác bảng phong, loaiphong, hinhanhphong
+│   │   │   ├── bookingModel.js   # Thao tác bảng datphong, chitietdatphong
+│   │   │   ├── paymentModel.js   # Thao tác bảng thanhtoan, khuyenmai, magiamgia
+│   │   │   ├── videoModel.js     # Thao tác bảng videoreview, videolike, videocomment
+│   │   │   └── utilityModel.js   # Thao tác bảng thongbao, tinnhan, lichsutimkiem
+│   │   │
+│   │   ├── controllers/          # C trong MVC: Nhận Request từ Route, điều hướng Model
+│   │   │   ├── authController.js     # Logic Đăng ký, Đăng nhập, Đổi mật khẩu
+│   │   │   ├── hotelController.js    # Logic Lấy danh sách, Lọc theo khu vực, Thêm tiện nghi
+│   │   │   ├── roomController.js     # Logic Xem phòng trống, Tính giá phụ thu
+│   │   │   ├── bookingController.js  # Logic Tạo đơn đặt phòng, Hủy đơn đặt phòng
+│   │   │   ├── paymentController.js  # Logic Áp mã giảm giá, Xử lý trạng thái thanh toán
+│   │   │   ├── videoController.js    # Logic Tải video lên, Bấm like, Thêm bình luận
+│   │   │   └── chatController.js     # Logic Gửi tin nhắn giữa Khách và Chủ nhà
+│   │   │
+│   │   ├── routes/               # Quản lý định tuyến - mở cổng API Endpoints
+│   │   │   ├── authRoutes.js         # Các tuyến /api/auth/...
+│   │   │   ├── hotelRoutes.js        # Các tuyến /api/hotels/...
+│   │   │   ├── roomRoutes.js         # Các tuyến /api/rooms/...
+│   │   │   ├── bookingRoutes.js      # Các tuyến /api/bookings/...
+│   │   │   ├── paymentRoutes.js      # Các tuyến /api/payments/...
+│   │   │   ├── videoRoutes.js        # Các tuyến /api/videos/...
+│   │   │   ├── chatRoutes.js         # Các tuyến /api/chats/...
+│   │   │   └── index.js              # File tổng gộp tất cả các routes trên lại
+│   │   │
+│   │   └── middlewares/          # Bộ lọc kiểm tra an toàn (Check Token, Phân quyền)
+│   │       ├── authMiddleware.js     # Xác thực quyền truy cập (Customer / Owner / Admin)
+│   │       └── errorMiddleware.js    # Bắt lỗi tập trung, giữ server không bị sập
+│   │
+│   │   └── app.js                # Khởi tạo Express app, cấu hình CORS cho Frontend gọi sang
+│   │
+│   ├── .env                      # 🔐 GIẤU KÍN: SUPABASE_URL, SUPABASE_KEY, PORT server
+│   ├── package.json              # Quản lý thư viện backend (express, cors, dotenv,...)
+│   └── server.js                 # File nút nguồn kích hoạt chạy Server Backend
+│
+│
+├── frontend/ ───────────────────────────────► [PHẦN FRONTEND - REACT + VITE]
+│   ├── public/                   # Chứa tài nguyên tĩnh (favicon, logo ứng dụng)
+│   ├── src/
+│   │   ├── api/                  # Trạm trung chuyển - Nơi viết Axios gọi lên Backend
+│   │   │   ├── axiosClient.js    # Cấu hình base URL, timeout, tự động gài token
+│   │   │   ├── authApi.js        # API Đăng nhập / Đăng ký
+│   │   │   ├── hotelApi.js       # API Lấy danh sách, thông tin khách sạn
+│   │   │   ├── bookingApi.js     # API Đặt phòng, kiểm tra lịch sử đơn hàng
+│   │   │   ├── videoApi.js       # API Tải video review lên, bấm like, comment
+│   │   │   └── chatApi.js        # API Lấy danh sách, gửi tin nhắn chat
+│   │   │
+│   │   ├── components/           # Các thành phần giao diện nhỏ tái sử dụng
+│   │   │   ├── Common/           # Button, Input, LoadingSpinner, Navbar, Footer dùng chung
+│   │   │   ├── Hotel/            # HotelCard, RoomCard, AmenitiesList (Danh sách tiện nghi)
+│   │   │   └── Video/            # ReelPlayer (Trình lướt video ngắn), CommentSection
+│   │   │
+│   │   ├── context/              # Quản lý trạng thái chia sẻ chung cho toàn website
+│   │   │   ├── AuthContext.jsx   # Lưu thông tin user đang đăng nhập và VaiTro
+│   │   │   └── ChatContext.jsx   # Quản lý số lượng tin nhắn chưa đọc theo thời gian thực
+│   │   │
+│   │   ├── layouts/              # Khung sườn bao bọc giao diện
+│   │   │   ├── MainLayout.jsx    # Khung cho Khách hàng (Có thanh tìm kiếm, Navbar, Footer)
+│   │   │   ├── AdminLayout.jsx   # Khung cho Admin (Có thanh Menu quản lý - Sidebar bên trái)
+│   │   │   └── OwnerLayout.jsx   # Khung cho Chủ nhà (Quản lý phòng ốc, kiểm duyệt đơn đặt phòng)
+│   │   │
+│   │   ├── pages/                # V trong MVC: Các trang giao diện hoàn chỉnh hiển thị
+│   │   │   ├── Customer/         # --- PHÂN HỆ CHO KHÁCH HÀNG ---
+│   │   │   │   ├── Home/         # Trang chủ (Hiện banner, danh sách cosoluutru nổi bật)
+│   │   │   │   ├── HotelDetail/  # Trang xem chi tiết một khách sạn, các loại phòng và tiện nghi
+│   │   │   │   ├── Reels/        # Trang lướt xem các VideoReview dạng ngắn (Tiktok/Shorts)
+│   │   │   │   ├── Booking/      # Trang điền thông tin đặt phòng, chọn mã giảm giá, thanh toán
+│   │   │   │   └── Profile/      # Trang quản lý thông tin cá nhân, lịch sử đặt phòng
+│   │   │   │
+│   │   │   ├── Owner/            # --- PHÂN HỆ CHO CHỦ KHÁCH SẠN ---
+│   │   │   │   ├── Dashboard/    # Xem báo cáo, thống kê doanh thu đặt phòng
+│   │   │   │   ├── ManageHotels/ # Thêm/Sửa/Xóa khách sạn, phòng ốc, đăng ảnh phòng
+│   │   │   │   └── ManageOrders/ # Duyệt đơn đặt phòng (Đang chờ, Đã nhận phòng, Hủy phòng)
+│   │   │   │
+│   │   │   ├── Admin/            # --- PHÂN HỆ CHO ADMIN ---
+│   │   │   │   ├── ApproveHotel/ # Duyệt bài đăng cơ sở lưu trú mới (TrangThai = 'Chờ duyệt')
+│   │   │   │   ├── ManageUsers/  # Quản lý tài khoản, khóa tài khoản vi phạm
+│   │   │   │   └── Promos/       # Tạo chiến dịch khuyến mãi (KhuyenMai, MaGiamGia)
+│   │   │   │
+│   │   │   └── Auth/             # Trang Đăng nhập / Đăng ký chung
+│   │   │
+│   │   ├── routes/               # Bản đồ dẫn đường - cấu hình URL React Router
+│   │   │   └── AppRoutes.jsx     # Định nghĩa route nào hiển thị trang nào, phân quyền truy cập
+│   │   │
+│   │   ├── index.css             # Quản lý Style chung (Màu chủ đạo xanh ngọc, font chữ hệ thống)
+│   │   ├── main.jsx              # Nút nguồn kích hoạt React App
+│   │   └── App.jsx               # File gốc (Gọi AppRoutes lên để trang web hoạt động)
+│   │
+│   ├── .env                      # Lưu biến môi trường (VITE_API_URL trỏ về server Node)
+│   ├── package.json              # Quản lý thư viện giao diện (axios, react-router-dom,...)
+│   └── vite.config.js            # Cấu hình công cụ đóng gói Vite cho Frontend
